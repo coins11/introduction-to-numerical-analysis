@@ -1,0 +1,15 @@
+mfiles = $(filter %.m, $(set $(ls ./src/)))
+out    = $(filter %.txt, $(set $(ls ./out/)))
+
+out.tex : ../tmpl/head.tex ../tmpl/end.tex ../s/make.pl $(string $(mfiles))
+	section
+		foreach(file, $(mfiles))
+			fname = $(nth 1, $(split "/", $(file)))
+			ssh $(coinsPC) "cat > $(remoteDir)tmp.m" < $(file)
+			ssh $(coinsPC) "cd $(remoteDir) && matlab -nodesktop -r tmp" > ./out/$(fname).txt
+	perl ../s/make.pl $(length $(mfiles)) $(string $(out))
+
+
+LaTeXDocument(out, out)
+
+.DEFAULT: out.pdf

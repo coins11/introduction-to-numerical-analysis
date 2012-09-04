@@ -1,0 +1,8 @@
+LATEX        = platex
+DVIPDFM      = dvipdfmx
+DVIPDFMFLAGS = -p a4
+
+remoteDir = ~/tmp/suchi/
+coinsPC   = cosmos25.coins.tsukuba.ac.jp
+
+.SUBDIRS: 1
