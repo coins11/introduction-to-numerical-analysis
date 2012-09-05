@@ -19,7 +19,7 @@ rectangle('Curvature', [1, 1], 'EdgeColor', 'r', 'LineWidth', 10);
 
 saveas(p, 'hoge.jpg', 'jpg');
 
-10000
+fprintf(1, 'Hello Matlab\n');
 
 quit
 %$ 4*m/n
