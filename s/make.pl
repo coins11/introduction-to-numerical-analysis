@@ -4,6 +4,15 @@ use Data::Dumper;
 
 my $length = shift @ARGV;
 
+my @mfile;
+push @mfile, (shift @ARGV) for 0..$length-1;
+
+my @out;
+push @out, (shift @ARGV) for 0..$length-1;
+
+my @article;
+push @article, (shift @ARGV) for 0..$length-1;
+
 open my $fh, '<', '../tmpl/head.tex' or die "tmpl/head.tex is NOT exist!\n";
 my @lines = <$fh>;
 close $fh;
@@ -15,22 +24,22 @@ close $fh;
 
 print Dumper @ARGV;
 
-for my $num (1..$length) {
-	my $result = '';
-	if ($ARGV[$num - 1]) {
-		open $fh, '<', $ARGV[$num - 1];
-		$result  = "\\begin{lstlisting}\n";
-		<$fh> for 1..13;
-		$result .= $_ while <$fh>;
-		$result .= "\\end{lstlisting}\n";
-		close $fh;
-	}
-
-	print $_;
-
+for (0..$length-1) {
 	my $newsec  = $section;
-	$newsec =~ s/---FILENAME---/.\/src\/$num.m/g;
-	$newsec =~ s/---RESULT---/$result/;
+	
+	$newsec =~ s/---MFILE---/$mfile[$_]/g;
+
+	my $result = '';
+	if ($out[$_]) {
+		$result = "\\lstinputlisting{$out[$_]}";
+	}
+	$newsec =~ s/---RESULTFILE---/$result/g;
+
+	my $input = '';
+	if ($article[$_]) {
+		$input = "\\input{$article[$_]}\n";
+	}
+	$newsec =~ s/---ARTICLEFILE---/$input/g;
 
 	push @lines, $newsec;
 }
