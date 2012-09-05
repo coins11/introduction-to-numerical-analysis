@@ -1,14 +1,14 @@
-mfiles = $(filter %.m, $(set $(ls ./src/)))
-out    = $(filter %.txt, $(set $(ls ./out/)))
+mfiles  = $(filter %.m, $(set $(ls ./src/)))
+out     = $(filter %.txt, $(set $(ls ./out/)))
+article = $(filter %.tex, $(set $(ls ./article/)))
 
-out.tex : ../tmpl/head.tex ../tmpl/end.tex ../s/make.pl $(string $(mfiles))
+out.tex : ../tmpl/head.tex ../tmpl/end.tex ../s/make.pl $(string $(mfiles)) $(string $(article))
 	section
 		foreach(file, $(mfiles))
 			fname = $(nth 1, $(split "/", $(file)))
 			ssh $(coinsPC) "cat > $(remoteDir)tmp.m" < $(file)
 			ssh $(coinsPC) "cd $(remoteDir) && matlab -nodesktop -r tmp" > ./out/$(fname).txt
-	perl ../s/make.pl $(length $(mfiles)) $(string $(out))
-
+	perl ../s/make.pl $(length $(mfiles)) $(string $(mfiles)) $(string $(out)) $(string $(article))
 
 LaTeXDocument(out, out)
 

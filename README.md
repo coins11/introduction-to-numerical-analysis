@@ -58,7 +58,9 @@ git clone git@github.com:coins11/introduction-to-numerical-analysis.git
 ### 最初
 
 
-`hinagata`フォルダをコピーして、適当なフォルダ名にする。その中の`src`フォルダに`1.m`とか`2.m`とか、そんな感じで`N.m`を作って書く。数字がファイル名になっているが、これは後で`tmp.m`というファイル名で`scp`するので問題ない。
+`hinagata`フォルダをコピーして、適当なフォルダ名にする。その中の`src`フォルダに`hoge.m`とか`foo.m`とか、そんな感じでファイルを作って書く。数字がファイル名になっても、`tmp.m`というファイル名で`scp`するので問題ない。
+
+`article`フォルダに入れたファイルは考察としてLaTeXファイルへインポートされる。
 
 ### OMakefile
 
