@@ -75,7 +75,7 @@ DVIPDFMFLAGS = -p a4
 remoteDir = ~/tmp/suchi/
 coinsPC   = cosmos25.coins.tsukuba.ac.jp
 
-.SUBDIRS: 1
+.SUBDIRS: 2012-09-04
 ```
 
 
