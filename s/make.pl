@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-use Data::Dumper;
 
 my $length = shift @ARGV;
 
@@ -21,8 +20,6 @@ open $fh, '<', '../tmpl/section.tex' or die "tmpl/section.tex is NOT exist!\n";
 my $section = '';
 $section .= $_ while <$fh>;
 close $fh;
-
-print Dumper @ARGV;
 
 for (0..$length-1) {
 	my $newsec  = $section;
