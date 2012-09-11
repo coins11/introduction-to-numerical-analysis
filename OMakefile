@@ -3,6 +3,6 @@ DVIPDFM      = dvipdfmx
 DVIPDFMFLAGS = -p a4
 
 remoteDir = ~/tmp/suchi/
-coinsPC   = cosmos25.coins.tsukuba.ac.jp
+coinsPC   = cosmos15.coins.tsukuba.ac.jp
 
 .SUBDIRS: 2012-09-04

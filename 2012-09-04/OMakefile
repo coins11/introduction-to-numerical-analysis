@@ -1,15 +1,18 @@
-mfiles  = $(filter %.m, $(set $(ls ./src/)))
-out     = $(filter %.txt, $(set $(ls ./out/)))
-article = $(filter %.tex, $(set $(ls ./article/)))
+dirs = $(FindDirs ./)
 
-out.tex : ../tmpl/head.tex ../tmpl/end.tex ../s/make.pl $(string $(mfiles)) $(string $(article))
+TEXDEPS = $(DepsUpdate $(dirs))
+
+out.tex : :value: $(DepsUpdate $(dirs))
 	section
-		foreach(file, $(mfiles))
-			fname = $(nth 1, $(split "/", $(file)))
-			ssh $(coinsPC) "cat > $(remoteDir)tmp.m" < $(file)
-			ssh $(coinsPC) "cd $(remoteDir) && matlab -nodesktop -r tmp" > ./out/$(fname).txt
-	perl ../s/make.pl $(length $(mfiles)) $(string $(mfiles)) $(string $(out)) $(string $(article))
+		fp = $(fopen $@, w)
+		fprintln($(fp), \input{../tmpl/head.tex})
+		foreach(dir, $(dirs))
+			fprintln($(fp), \part{})
+			fprintln($(fp), \setcounter{section}{0})
+			fprintln($(fp), \input{$(dir)/out.tex})
+		fprintln($(fp), \input{../tmpl/end.tex})
 
 LaTeXDocument(out, out)
 
 .DEFAULT: out.pdf
+.SUBDIRS: 1
